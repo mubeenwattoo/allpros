@@ -3,381 +3,798 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AllPros — Get listed</title>
+    <title>All Pros — Get listed</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
       :root {
-        --ap-green: #14b704;
-        --ap-green-hover: #109903;
-        --ap-green-soft: color-mix(in srgb, #14b704 11%, white);
-        --ap-green-tint: color-mix(in srgb, #14b704 16%, white);
-        --ap-green-icon: color-mix(in srgb, #14b704 88%, black);
+        --surface: #f6f6f4;
+        --ink: #141414;
+        --muted: #5c5c5c;
+        --line: #e5e5e2;
+        --mint: #e8f4ec;
+        --mint-ink: #1d5c35;
+        --logo-green: #1a7a4a;
+        --brand-green: #1a7a4a;
       }
-      @keyframes cursor-blink {
-        0%,
-        45% {
-          opacity: 1;
-        }
-        50%,
-        100% {
-          opacity: 0;
-        }
+
+      html.nav-open {
+        overflow: hidden;
       }
-      .ap-cursor {
-        animation: cursor-blink 1s step-end infinite;
-      }
-      @keyframes hero-reveal {
+
+      @keyframes mobile-nav-link-in {
         from {
           opacity: 0;
-          transform: translate3d(0, 0.65rem, 0);
+          transform: translateY(0.4rem);
         }
         to {
           opacity: 1;
-          transform: translate3d(0, 0, 0);
+          transform: translateY(0);
         }
       }
-      .hero-reveal {
-        animation: hero-reveal 0.52s cubic-bezier(0.22, 0.82, 0.24, 1) both;
+
+      @media (prefers-reduced-motion: no-preference) {
+        #mobile-nav.is-open a {
+          animation: mobile-nav-link-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+        }
+        #mobile-nav.is-open a:nth-child(1) {
+          animation-delay: 0.04s;
+        }
+        #mobile-nav.is-open a:nth-child(2) {
+          animation-delay: 0.07s;
+        }
+        #mobile-nav.is-open a:nth-child(3) {
+          animation-delay: 0.1s;
+        }
+        #mobile-nav.is-open a:nth-child(4) {
+          animation-delay: 0.13s;
+        }
+        #mobile-nav.is-open a:nth-child(5) {
+          animation-delay: 0.16s;
+        }
+        #mobile-nav.is-open a:nth-child(6) {
+          animation-delay: 0.19s;
+        }
       }
-      .hero-d0 {
-        animation-delay: 0s;
+
+      #mobile-nav {
+        transform: translate3d(0, -0.5rem, 0) scale(0.98);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+          visibility 0s linear 0.32s;
       }
-      .hero-d1 {
-        animation-delay: 0.07s;
+
+      #mobile-nav.is-open {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition:
+          opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+          visibility 0s linear 0s;
       }
-      .hero-d2 {
-        animation-delay: 0.14s;
+
+      #mobile-nav-backdrop {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 0.28s ease-out,
+          visibility 0s linear 0.28s;
       }
-      .hero-d3 {
-        animation-delay: 0.21s;
+
+      #mobile-nav-backdrop.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition:
+          opacity 0.28s ease-out,
+          visibility 0s linear 0s;
       }
-      .hero-d4 {
-        animation-delay: 0.28s;
+
+      #nav-toggle.is-open .nav-toggle-icon-menu {
+        opacity: 0;
+        transform: scale(0.88);
       }
-      .hero-d4b {
-        animation-delay: 0.34s;
+
+      #nav-toggle.is-open .nav-toggle-icon-close {
+        opacity: 1;
+        transform: scale(1);
       }
-      .hero-d5 {
-        animation-delay: 0.35s;
+
+      #nav-toggle .nav-toggle-icon-menu,
+      #nav-toggle .nav-toggle-icon-close {
+        transition:
+          opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
       }
-      .hero-d6 {
-        animation-delay: 0.42s;
+
+      #nav-toggle .nav-toggle-icon-menu {
+        opacity: 1;
+        transform: scale(1);
       }
-      .hero-d7 {
-        animation-delay: 0.49s;
+
+      #nav-toggle .nav-toggle-icon-close {
+        opacity: 0;
+        transform: scale(0.88);
       }
-      .hero-d8 {
-        animation-delay: 0.56s;
-      }
-      .hero-d9 {
-        animation-delay: 0.63s;
-      }
-      .hero-d10 {
-        animation-delay: 0.7s;
-      }
+
       @media (prefers-reduced-motion: reduce) {
-        .hero-reveal {
+        #mobile-nav,
+        #mobile-nav-backdrop {
+          transition-duration: 0.01ms;
+        }
+        #mobile-nav {
+          transform: none;
+        }
+        #mobile-nav.is-open {
+          transform: none;
+        }
+        #mobile-nav.is-open a {
           animation: none !important;
-          opacity: 1 !important;
-          transform: none !important;
+        }
+        #nav-toggle .nav-toggle-icon-menu,
+        #nav-toggle .nav-toggle-icon-close {
+          transition-duration: 0.01ms;
         }
       }
     </style>
   </head>
   <body
-    class="antialiased text-slate-900 [font-family:Inter,ui-sans-serif,system-ui,sans-serif]"
+    class="min-h-screen bg-[var(--surface)] text-[var(--ink)] antialiased [font-family:'DM_Sans',ui-sans-serif,system-ui,sans-serif]"
   >
-    <section
-      class="relative min-h-[100dvh] bg-white bg-[radial-gradient(rgb(226_232_240)_1.25px,transparent_1.25px)] bg-[length:20px_20px] sm:bg-[length:22px_22px]"
-      aria-label="Hero"
+    <header
+      class="relative sticky top-0 z-[70] border-b border-[var(--line)] bg-[var(--surface)]/95 backdrop-blur-md supports-[backdrop-filter]:bg-[var(--surface)]/80"
     >
-      <div
-        class="relative mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-10 px-4 pb-24 pt-12 min-[400px]:px-5 sm:gap-12 sm:px-6 sm:pb-28 sm:pt-16 md:gap-14 md:px-8 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:gap-3 lg:px-10 lg:pb-32 lg:pt-20 xl:gap-4 xl:px-12"
-      >
-        <!-- Left column (narrower on lg) -->
-        <div class="min-w-0 w-full lg:max-w-none lg:pr-2 xl:pr-4">
-          <p
-            class="hero-reveal hero-d0 mb-3 text-[14px] font-semibold leading-snug text-slate-900 min-[400px]:mb-4 min-[400px]:text-[15px] sm:text-[20px]"
+      <div class="mx-auto flex h-[4.25rem] max-w-[1200px] items-center justify-between gap-6 px-5 sm:px-8 lg:px-10">
+        <a href="/" class="group flex shrink-0 items-center gap-2.5 no-underline outline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--ink)]">
+          <span class="size-2.5 shrink-0 rounded-full bg-[var(--logo-green)] ring-2 ring-[var(--logo-green)]/15" aria-hidden="true"></span>
+          <span class="text-[1.05rem] font-bold tracking-[-0.02em]">
+            <span class="text-[var(--ink)] transition-colors group-hover:text-neutral-700">All </span><span class="text-[var(--brand-green)]">Pros</span>
+          </span>
+        </a>
+
+        <nav class="hidden flex-1 items-center justify-end gap-0.5 lg:flex" aria-label="Primary">
+          <a
+            href="#"
+            class="rounded-md px-2.5 py-2 text-[0.9375rem] font-semibold text-[var(--ink)] transition-colors hover:text-neutral-700 xl:px-3"
           >
-            <span class="sr-only">For online educators</span>
-            <span class="flex flex-wrap items-baseline gap-x-1.5" aria-hidden="true">
-              <span>For</span>
-              <span class="inline-flex min-h-[1.25em] items-baseline text-[var(--ap-green)]">
-                <span data-typewriter></span>
-                <span
-                  class="ap-cursor ml-px inline-block h-[1.05em]
-                   w-0.5 translate-y-0.5 bg-[var(--ap-green)] align-middle"
-                ></span>
-              </span>
+            Get Listed
+          </a>
+          <a
+            href="#"
+            class="rounded-md px-2.5 py-2 text-[0.9375rem] font-normal text-[var(--muted)] transition-colors hover:text-[var(--ink)] xl:px-3"
+          >
+            Get Verified
+          </a>
+          <a
+            href="#"
+            class="rounded-md px-2.5 py-2 text-[0.9375rem] font-normal text-[var(--muted)] transition-colors hover:text-[var(--ink)] xl:px-3"
+          >
+            Pricing
+          </a>
+          <a
+            href="#"
+            class="rounded-md px-2.5 py-2 text-[0.9375rem] font-normal text-[var(--muted)] transition-colors hover:text-[var(--ink)] xl:px-3"
+          >
+            Case Studies
+          </a>
+          <a
+            href="#"
+            class="rounded-md px-2.5 py-2 text-[0.9375rem] font-normal text-[var(--muted)] transition-colors hover:text-[var(--ink)] xl:px-3"
+          >
+            Blog
+          </a>
+          <a
+            href="#"
+            class="rounded-md px-2.5 py-2 text-[0.9375rem] font-normal text-[var(--muted)] transition-colors hover:text-[var(--ink)] xl:px-3"
+          >
+            Price Calculator
+          </a>
+          <span class="mx-2 h-5 w-px shrink-0 bg-neutral-300" aria-hidden="true"></span>
+          <a
+            href="#"
+            class="ml-1 inline-flex shrink-0 rounded-full bg-[var(--ink)] px-5 py-2.5 text-[0.8125rem] font-semibold tracking-wide text-white transition-opacity hover:opacity-90"
+          >
+            Get Listed Free
+          </a>
+        </nav>
+
+        <div class="flex items-center gap-2.5 lg:hidden">
+          <a
+            href="#"
+            class="inline-flex rounded-full bg-[var(--ink)] px-4 py-2 text-[0.8125rem] font-semibold text-white transition-opacity hover:opacity-90"
+          >
+            Get Listed Free
+          </a>
+          <button
+            type="button"
+            class="inline-flex size-10 items-center justify-center rounded-xl border border-[var(--line)] bg-white text-[var(--ink)] shadow-sm [-webkit-tap-highlight-color:transparent] transition-[transform,background-color,box-shadow] duration-200 ease-out hover:bg-neutral-50 hover:shadow active:scale-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] motion-reduce:transition-none motion-reduce:active:transform-none"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+            id="nav-toggle"
+          >
+            <span class="sr-only">Menu</span>
+            <span class="relative block size-[18px]" aria-hidden="true">
+              <svg
+                class="nav-toggle-icon-menu absolute inset-0 m-auto"
+                width="18"
+                height="14"
+                viewBox="0 0 18 14"
+                fill="none"
+              >
+                <path d="M0 1h18M0 7h18M0 13h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+              <svg
+                class="nav-toggle-icon-close absolute inset-0 m-auto"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
             </span>
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="mobile-nav"
+        class="absolute left-0 right-0 top-full z-[60] origin-top border-b border-[var(--line)] bg-[var(--surface)]/98 px-5 py-6 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.14)] backdrop-blur-md supports-[backdrop-filter]:bg-[var(--surface)]/92 lg:hidden"
+        aria-label="Mobile navigation"
+        aria-hidden="true"
+      >
+        <div class="flex flex-col gap-1">
+          <a
+            class="rounded-xl px-3 py-3 text-[0.9375rem] font-semibold text-[var(--ink)] transition-colors hover:bg-black/[0.04] active:bg-black/[0.06]"
+            href="#"
+            >Get Listed</a>
+          <a
+            class="rounded-xl px-3 py-3 text-[0.9375rem] text-[var(--muted)] transition-colors hover:bg-black/[0.04] hover:text-[var(--ink)] active:bg-black/[0.06]"
+            href="#"
+            >Get Verified</a>
+          <a
+            class="rounded-xl px-3 py-3 text-[0.9375rem] text-[var(--muted)] transition-colors hover:bg-black/[0.04] hover:text-[var(--ink)] active:bg-black/[0.06]"
+            href="#"
+            >Pricing</a>
+          <a
+            class="rounded-xl px-3 py-3 text-[0.9375rem] text-[var(--muted)] transition-colors hover:bg-black/[0.04] hover:text-[var(--ink)] active:bg-black/[0.06]"
+            href="#"
+            >Case Studies</a>
+          <a
+            class="rounded-xl px-3 py-3 text-[0.9375rem] text-[var(--muted)] transition-colors hover:bg-black/[0.04] hover:text-[var(--ink)] active:bg-black/[0.06]"
+            href="#"
+            >Blog</a>
+          <a
+            class="rounded-xl px-3 py-3 text-[0.9375rem] text-[var(--muted)] transition-colors hover:bg-black/[0.04] hover:text-[var(--ink)] active:bg-black/[0.06]"
+            href="#"
+            >Price Calculator</a>
+        </div>
+      </div>
+    </header>
+
+    <div
+      id="mobile-nav-backdrop"
+      class="fixed inset-x-0 bottom-0 top-[4.25rem] z-[55] bg-neutral-900/25 backdrop-blur-[2px] lg:hidden"
+      aria-hidden="true"
+    ></div>
+
+    <main>
+      <section class="px-5 pb-16 pt-14 sm:px-8 sm:pb-20 sm:pt-16 lg:px-10 lg:pb-24 lg:pt-20" aria-labelledby="hero-heading">
+        <div class="mx-auto max-w-[48rem] text-center">
+          <p
+            class="mx-auto mb-8 inline-flex max-w-full items-center justify-center rounded-full border border-emerald-200/60 bg-[var(--mint)] px-4 py-2.5 text-[0.625rem] font-semibold uppercase leading-snug tracking-[0.14em] text-[var(--mint-ink)] sm:px-5 sm:text-[0.6875rem] sm:tracking-[0.16em]"
+          >
+            FOR COURSE CREATORS, COACHES AND ONLINE EDUCATORS
           </p>
 
           <h1
-            class="mb-4 text-[2rem] font-extrabold leading-[1.18] tracking-[0.02em]
-             text-slate-800 min-[400px]:text-[2.35rem] min-[400px]:leading-[1.17]
-              sm:mb-5 sm:text-[2.65rem] sm:leading-[1.16] md:text-5xl md:leading-[1.15]
-               lg:text-[2.85rem] lg:leading-[1.14] xl:text-[3.95rem] 
-               xl:leading-[1.13] xl:tracking-[0.025em]"
+            id="hero-heading"
+            class="text-[3rem] font-semibold italic leading-[1.04] tracking-[-0.03em] text-[var(--ink)] sm:text-[3.35rem] sm:leading-[1.02] md:text-[4rem] md:leading-[1.01] lg:text-[4.5rem] lg:leading-[1] [font-family:'Instrument_Serif',Georgia,serif]"
           >
-            <span class="hero-reveal hero-d1 block">Get listed on</span>
-            <span class="hero-reveal hero-d2 block">AllPros.</span>
+            Get listed on AllPros.
           </h1>
 
-          <p
-            class="hero-reveal hero-d3 mb-6 max-w-[36rem] text-[15px] leading-relaxed text-slate-500 min-[400px]:text-[16px] sm:mb-8 sm:text-[17px] sm:leading-relaxed lg:text-lg"
-          >
+          <p class="mx-auto mt-7 max-w-[38rem] text-[1.0625rem] leading-[1.65] text-[var(--muted)] sm:text-lg sm:leading-relaxed">
             Every month, thousands of students come to AllPros looking for someone worth trusting.
-            Claim your free profile and make sure they find you.
+            <span class="mt-1 block font-semibold text-[var(--ink)] sm:mt-0 sm:inline">
+              Claim your free profile and make sure they find you.
+            </span>
           </p>
 
-          <div
-            class="mb-8 flex flex-col gap-3 min-[480px]:flex-row min-[480px]:flex-wrap min-[480px]:items-stretch sm:mb-10"
-          >
+          <div class="mt-10 flex flex-col items-stretch justify-center gap-3 sm:mt-12 sm:flex-row sm:items-center sm:gap-4">
             <a
               href="#"
-              class="hero-reveal hero-d4 inline-flex min-h-[48px] flex-1 items-center justify-center gap-2 rounded-lg bg-[var(--ap-green)] px-5 py-3.5 text-[14px] font-semibold text-white shadow-sm transition-colors hover:bg-[var(--ap-green-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ap-green)] min-[480px]:flex-initial min-[480px]:px-6 sm:text-[15px]"
+              class="inline-flex min-h-[3rem] items-center justify-center rounded-full bg-[var(--ink)] px-8 text-[0.9375rem] font-semibold text-white transition-[background-color] duration-300 ease-in-out hover:bg-[var(--brand-green)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
             >
-              Create your free AllPros page
-              <svg class="h-4 w-4 shrink-0" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path
-                  d="M3 8h10M9 4l4 4-4 4"
-                  stroke="currentColor"
-                  stroke-width="1.75"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              Claim Your Free Profile
             </a>
             <a
               href="#"
-              class="hero-reveal hero-d4b inline-flex min-h-[48px] min-w-0 flex-1 items-center justify-center rounded-lg border-2 border-[var(--ap-green)] bg-white px-4 py-3.5 text-[14px] font-semibold text-[var(--ap-green)] transition-[background-color,color,border-color,box-shadow] duration-300 ease-out hover:border-[var(--ap-green)] hover:bg-[var(--ap-green)] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ap-green)] min-[480px]:min-w-[9.75rem] min-[480px]:flex-initial min-[480px]:px-5 sm:text-[15px] lg:min-w-[10.25rem] lg:px-6"
+              class="inline-flex min-h-[3rem] items-center justify-center rounded-full border border-[var(--line)] bg-white px-8 text-[0.9375rem] font-semibold text-[var(--ink)] shadow-[0_1px_0_rgba(0,0,0,0.04)] transition-colors hover:border-neutral-300 hover:bg-neutral-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
             >
               See all plans
             </a>
           </div>
 
-          <div
-            class="mb-6 grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 min-[480px]:gap-3 sm:mb-8 md:grid-cols-3 md:gap-4"
-          >
-            <div
-              class="hero-reveal hero-d5 group relative cursor-default overflow-hidden rounded-lg border border-slate-200 bg-white px-3 py-3.5 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-[box-shadow,border-color,background-color] duration-500 ease-in-out before:pointer-events-none before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-br before:from-[var(--ap-green)]/0 before:to-[var(--ap-green)]/0 before:opacity-0 before:transition-opacity before:duration-500 before:ease-in-out before:content-[''] hover:border-[color-mix(in_srgb,var(--ap-green)_40%,transparent)] hover:bg-[color-mix(in_srgb,var(--ap-green)_4%,white)] hover:shadow-[0_12px_28px_-8px_rgba(20,183,4,0.12),0_4px_14px_-4px_rgba(15,23,42,0.06)] hover:before:opacity-100 hover:before:from-[var(--ap-green)]/[0.07] hover:before:to-transparent min-[480px]:px-4 min-[480px]:py-4 min-[480px]:min-h-[88px] md:min-h-0"
-            >
-              <div
-                class="relative text-lg font-bold leading-none text-[var(--ap-green)] transition-colors duration-500 ease-in-out group-hover:text-[color-mix(in_srgb,var(--ap-green)_88%,black)] min-[480px]:text-xl sm:text-[1.35rem]"
-              >
-                3,600+
-              </div>
-              <div class="relative mt-1.5 text-[12px] leading-snug text-slate-500 transition-colors duration-500 ease-in-out group-hover:text-slate-600 min-[480px]:mt-2 min-[480px]:text-[13px]">
-                Programs listed
-              </div>
-            </div>
-            <div
-              class="hero-reveal hero-d6 group relative cursor-default overflow-hidden rounded-lg border border-slate-200 bg-white px-3 py-3.5 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-[box-shadow,border-color,background-color] duration-500 ease-in-out before:pointer-events-none before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-br before:from-[var(--ap-green)]/0 before:to-[var(--ap-green)]/0 before:opacity-0 before:transition-opacity before:duration-500 before:ease-in-out before:content-[''] hover:border-[color-mix(in_srgb,var(--ap-green)_40%,transparent)] hover:bg-[color-mix(in_srgb,var(--ap-green)_4%,white)] hover:shadow-[0_12px_28px_-8px_rgba(20,183,4,0.12),0_4px_14px_-4px_rgba(15,23,42,0.06)] hover:before:opacity-100 hover:before:from-[var(--ap-green)]/[0.07] hover:before:to-transparent min-[480px]:px-4 min-[480px]:py-4 min-[480px]:min-h-[88px] md:min-h-0"
-            >
-              <div
-                class="relative text-lg font-bold leading-none text-[var(--ap-green)] transition-colors duration-500 ease-in-out group-hover:text-[color-mix(in_srgb,var(--ap-green)_88%,black)] min-[480px]:text-xl sm:text-[1.35rem]"
-              >
-                2,800+
-              </div>
-              <div class="relative mt-1.5 text-[12px] leading-snug text-slate-500 transition-colors duration-500 ease-in-out group-hover:text-slate-600 min-[480px]:mt-2 min-[480px]:text-[13px]">
-                Verified student reviews
-              </div>
-            </div>
-            <div
-              class="hero-reveal hero-d7 group relative cursor-default overflow-hidden rounded-lg border border-slate-200 bg-white px-3 py-3.5 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-[box-shadow,border-color,background-color] duration-500 ease-in-out before:pointer-events-none before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-br before:from-[var(--ap-green)]/0 before:to-[var(--ap-green)]/0 before:opacity-0 before:transition-opacity before:duration-500 before:ease-in-out before:content-[''] hover:border-[color-mix(in_srgb,var(--ap-green)_40%,transparent)] hover:bg-[color-mix(in_srgb,var(--ap-green)_4%,white)] hover:shadow-[0_12px_28px_-8px_rgba(20,183,4,0.12),0_4px_14px_-4px_rgba(15,23,42,0.06)] hover:before:opacity-100 hover:before:from-[var(--ap-green)]/[0.07] hover:before:to-transparent min-[480px]:col-span-2 min-[480px]:px-4 min-[480px]:py-4 md:col-span-1"
-            >
-              <div
-                class="relative text-lg font-bold leading-none text-[var(--ap-green)] transition-colors duration-500 ease-in-out group-hover:text-[color-mix(in_srgb,var(--ap-green)_88%,black)] min-[480px]:text-xl sm:text-[1.35rem]"
-              >
-                Free
-              </div>
-              <div class="relative mt-1.5 text-[12px] leading-snug text-slate-500 transition-colors duration-500 ease-in-out group-hover:text-slate-600 min-[480px]:mt-2 min-[480px]:text-[13px]">
-                Forever. No card, no catch.
-              </div>
-            </div>
-          </div>
-
-          <p class="hero-reveal hero-d8 text-center text-[12px] leading-relaxed text-slate-400 min-[480px]:text-left min-[480px]:text-[13px]">
+          <p class="mt-10 text-[0.8125rem] leading-relaxed text-neutral-400 sm:mt-12">
             No card required. Takes 2 minutes. Your profile at
-            <span class="text-slate-500">allpros.io/p/your-name</span>
+            <span class="text-neutral-500">allpros.io/p/your-name</span>
           </p>
         </div>
+      </section>
 
-        <!-- Right column (wider on lg) -->
-        <div class="relative mx-auto w-full min-w-0 max-w-md pb-10 pt-1 lg:mx-0 lg:max-w-none lg:pb-12 lg:pl-2 xl:pl-4">
-          <!-- Inner wrap: pill positions to card bottom-left -->
+      <section
+        class="border-t border-[var(--line)] bg-[#f0ede6]"
+        aria-label="All Pros at a glance"
+      >
+        <div class="mx-auto max-w-[1100px] px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-10">
           <div
-            class="relative mx-auto w-full max-w-md min-[480px]:max-w-xl lg:ml-auto lg:mr-0 lg:max-w-[500px] xl:max-w-[530px]"
+            class="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4 lg:gap-x-0 lg:gap-y-0 lg:divide-x lg:divide-[var(--line)]"
           >
-            <div
-              class="profile-card hero-reveal hero-d9 group relative w-full cursor-default rounded-2xl border border-slate-200/80 bg-white p-6 shadow-[0_24px_48px_-14px_rgba(15,23,42,0.16),0_10px_22px_-8px_rgba(15,23,42,0.09)] ring-1 ring-slate-900/[0.03] transition-[box-shadow,border-color,ring-color,background-color] duration-500 ease-in-out before:pointer-events-none before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-[var(--ap-green)]/0 before:via-[var(--ap-green)]/0 before:to-[var(--ap-green)]/0 before:opacity-0 before:transition-opacity before:duration-500 before:ease-in-out before:content-[''] hover:border-[color-mix(in_srgb,var(--ap-green)_32%,transparent)] hover:bg-[color-mix(in_srgb,var(--ap-green)_4%,white)] hover:shadow-[0_24px_48px_-14px_rgba(15,23,42,0.18),0_12px_28px_-10px_rgba(20,183,4,0.1)] hover:ring-[var(--ap-green)]/12 hover:before:from-[var(--ap-green)]/[0.08] hover:before:via-[var(--ap-green)]/[0.04] hover:before:to-transparent hover:before:opacity-100 min-[480px]:p-7 sm:p-8"
-              role="img"
-              aria-label="Example AllPros profile preview"
-            >
-            <!-- Header -->
-            <div class="flex items-start justify-between gap-4">
-              <div class="flex min-w-0 flex-1 items-center gap-4">
-                <div
-                  class="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[color-mix(in_srgb,var(--ap-green)_22%,white)] via-[color-mix(in_srgb,var(--ap-green)_38%,white)] to-[color-mix(in_srgb,var(--ap-green)_58%,white)] text-[1.125rem] font-bold tracking-tight text-[var(--ap-green)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5),inset_0_-14px_28px_-18px_rgba(20,183,4,0.28)] ring-1 ring-[var(--ap-green)]/25 min-[480px]:h-14 min-[480px]:w-14 min-[480px]:text-xl"
-                  aria-hidden="true"
-                >
-                  Y
-                </div>
-                <div class="min-w-0 space-y-0.5">
-                  <p class="text-[1.0625rem] font-semibold leading-tight tracking-tight text-slate-900 min-[480px]:text-[1.125rem]">
-                    Your Name
-                  </p>
-                  <p class="truncate text-[0.8125rem] leading-snug text-slate-500 min-[480px]:text-[0.8125rem]">
-                    allpros.io/p/your-name
-                  </p>
-                </div>
-              </div>
-              <span
-                class="shrink-0 rounded-full border border-slate-200/90
-                 bg-slate-100/90 px-2.5 py-1 text-[10px] font-semibold
-                  uppercase tracking-[0.12em] text-slate-600
-                   min-[480px]:px-3.5 min-[480px]:py-1.5 min-[480px]:text-[11px]"
+            <div class="flex flex-col items-center text-center sm:px-4 lg:px-6 lg:py-1">
+              <p
+                class="text-[2.25rem] font-medium leading-none tracking-[-0.02em] sm:text-[2.5rem] md:text-[2.65rem] [font-family:'Instrument_Serif',Georgia,serif]"
               >
-                Listed
-              </span>
-            </div>
-
-            <div class="my-6 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" role="presentation"></div>
-
-            <!-- Stats -->
-            <div class="grid grid-cols-2 gap-3 min-[480px]:gap-3.5">
-              <div
-                class="flex flex-col items-center justify-center rounded-xl border border-slate-100 bg-slate-50/90 px-3 py-5 text-center min-[480px]:px-4 min-[480px]:py-6"
-              >
-                <span class="text-[1.75rem] font-bold tabular-nums 
-                leading-none tracking-tight text-[var(--ap-green)] min-[480px]:text-[2rem]">
-                  8.4
-                </span>
-                <span class="mt-2 text-[11px] font-medium leading-tight text-slate-500 min-[480px]:text-xs">
-                  AllPros Score
-                </span>
-              </div>
-              <div
-                class="flex flex-col items-center justify-center rounded-xl border border-slate-100 bg-slate-50/90 px-3 py-5 text-center min-[480px]:px-4 min-[480px]:py-6"
-              >
-                <div class="flex items-baseline justify-center gap-1">
-                  <span class="text-[1.75rem] font-bold tabular-nums leading-none tracking-tight text-slate-900 min-[480px]:text-[2rem]">
-                    4.6
-                  </span>
-                  <svg
-                    class="mb-0.5 h-[1.1rem] w-[1.1rem] shrink-0 text-[var(--ap-green)] min-[480px]:h-5 min-[480px]:w-5"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    />
-                  </svg>
-                </div>
-                <span class="mt-2 text-[11px] font-medium leading-tight text-slate-500 min-[480px]:text-xs">
-                  avg rating
-                </span>
-              </div>
-            </div>
-
-            <!-- Conversion strip -->
-            <div
-              class="mt-5 flex items-center gap-3 rounded-xl border border-[color-mix(in_srgb,var(--ap-green)_18%,transparent)] bg-[color-mix(in_srgb,var(--ap-green)_9%,white)] px-4 py-3.5 min-[480px]:mt-6 min-[480px]:px-4 min-[480px]:py-4"
-            >
-              <span
-                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/80 text-[var(--ap-green)] shadow-sm ring-1 ring-slate-900/5"
-              >
-                <svg class="h-[1.125rem] w-[1.125rem]" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path
-                    d="M4 16l4-4 4 4 8-8"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M16 8h4v4"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span>
-              <p class="text-left text-[12.5px] font-semibold leading-snug text-[var(--ap-green)] min-[480px]:text-[0.8125rem]">
-                +67% conversion with verified proof
+                <span class="text-[var(--ink)]">10</span><span class="text-[var(--brand-green)]">k+</span>
+              </p>
+              <p class="mt-3 max-w-[13.5rem] text-[0.8125rem] font-normal leading-snug text-neutral-500">
+                students trust AllPros before they buy
               </p>
             </div>
+            <div class="flex flex-col items-center text-center sm:px-4 lg:px-6 lg:py-1">
+              <p
+                class="text-[2.25rem] font-medium leading-none tracking-[-0.02em] sm:text-[2.5rem] md:text-[2.65rem] [font-family:'Instrument_Serif',Georgia,serif]"
+              >
+                <span class="text-[var(--ink)]">500</span><span class="text-[var(--brand-green)]">+</span>
+              </p>
+              <p class="mt-3 max-w-[13.5rem] text-[0.8125rem] font-normal leading-snug text-neutral-500">
+                creators and programs listed on AllPros
+              </p>
             </div>
-
-            <!-- Floating pill: bottom-left of card (centered on very narrow screens) -->
-            <div
-              class="hero-reveal hero-d10 absolute -bottom-2 left-1/2
-               z-10 w-[max(100%-1.5rem,17rem)] 
-               max-w-[calc(100%-1rem)] -translate-x-1/2
-                rounded-full border border-slate-200/90
-                 bg-white/95 px-4 py-2.5 text-center 
-                 text-[11px] font-semibold tracking-tight
-                  text-slate-700 
-                  shadow-[0_8px_24px_rgba(15,23,42,0.12),0_0_0_1px_rgba(255,255,255,0.85)_inset] 
-                  backdrop-blur-sm min-[380px]:w-max min-[380px]:max-w-none min-[380px]:px-5
-                   min-[380px]:py-2.5 min-[380px]:text-[12px] min-[480px]:-bottom-4.5
-                    min-[480px]:left-4 min-[480px]:right-auto
-                     min-[480px]:translate-x-0 lg:-left-8 xl:-left-16"
-            >
-              3,600+ programs listed
+            <div class="flex flex-col items-center text-center sm:px-4 lg:px-6 lg:py-1">
+              <p
+                class="text-[2.25rem] font-medium leading-none tracking-[-0.02em] sm:text-[2.5rem] md:text-[2.65rem] [font-family:'Instrument_Serif',Georgia,serif]"
+              >
+                <span class="text-[var(--ink)]">78</span><span class="text-[var(--brand-green)]">%</span>
+              </p>
+              <p class="mt-3 max-w-[13.5rem] text-[0.8125rem] font-normal leading-snug text-neutral-500">
+                of students check before buying a course online
+              </p>
+            </div>
+            <div class="flex flex-col items-center text-center sm:px-4 lg:px-6 lg:py-1">
+              <p
+                class="text-[2.25rem] font-medium leading-none tracking-[-0.02em] sm:text-[2.5rem] md:text-[2.65rem] [font-family:'Instrument_Serif',Georgia,serif]"
+              >
+                <span class="text-[var(--ink)]">5</span><span class="text-[var(--brand-green)]">x</span>
+              </p>
+              <p class="mt-3 max-w-[13.5rem] text-[0.8125rem] font-normal leading-snug text-neutral-500">
+                more visibility for Verified vs Listed creators
+              </p>
             </div>
           </div>
         </div>
+      </section>
+
+      <section class="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="why-listed-heading">
+        <div class="mx-auto max-w-[1024px] px-5 sm:px-8 lg:px-10">
+          <p class="text-left text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-neutral-500">
+            Why get listed
+          </p>
+          <h2
+            id="why-listed-heading"
+            class="mt-4 max-w-[52rem] text-left text-[2rem] font-bold leading-[1.12] tracking-[-0.02em] text-[var(--ink)] sm:text-[2.35rem] md:text-[2.65rem] lg:text-[2.85rem] [font-family:'Instrument_Serif',Georgia,serif]"
+          >
+            Get found by
+            <span class="font-bold text-[var(--brand-green)] italic">more students.</span>
+          </h2>
+          <p class="mt-6 max-w-[40rem] text-left text-[1.0625rem] leading-relaxed text-neutral-600 sm:text-[1.0625rem]">
+            Students search for creators in your niche every day. Your AllPros profile puts you in front of them — with
+            verified reviews and a real score — before they even know your name.
+          </p>
+
+          <div
+            class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-neutral-200/90 bg-neutral-200/80 sm:mt-14 md:grid-cols-2"
+          >
+            <article class="bg-white px-7 py-9 sm:px-9 sm:py-10">
+              <div
+                class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--brand-green)_12%,white)] text-[var(--brand-green)] md:mx-0"
+                aria-hidden="true"
+              >
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+                  <circle cx="11" cy="11" r="6.5" />
+                  <path d="M16.5 16.5L21 21" />
+                </svg>
+              </div>
+              <h3 class="mt-5 text-center text-[1.0625rem] font-bold leading-snug text-[var(--ink)] md:text-left">
+                Show up on Google when students search your name
+              </h3>
+              <p class="mt-3 text-center text-[0.9375rem] leading-relaxed text-neutral-600 md:text-left">
+                Your AllPros profile is indexed and optimized for search. When someone types your name followed by
+                &lsquo;review&rsquo; or &lsquo;course&rsquo; — your page is one of the first things they see.
+              </p>
+            </article>
+
+            <article class="bg-white px-7 py-9 sm:px-9 sm:py-10">
+              <div
+                class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--brand-green)_12%,white)] text-[var(--brand-green)] md:mx-0"
+                aria-hidden="true"
+              >
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <circle cx="12" cy="12" r="7.5" stroke-linecap="round" />
+                  <path stroke-linecap="round" d="M12 8.25v4l2.5 1.25" />
+                </svg>
+              </div>
+              <h3 class="mt-5 text-center text-[1.0625rem] font-bold leading-snug text-[var(--ink)] md:text-left">
+                Get recommended by AI
+              </h3>
+              <p class="mt-3 text-center text-[0.9375rem] leading-relaxed text-neutral-600 md:text-left">
+                When students ask ChatGPT, Perplexity, or Google AI who to learn from in your niche, AllPros creators
+                surface in the results. Your profile works for you before you say a word.
+              </p>
+            </article>
+
+            <article class="bg-white px-7 py-9 sm:px-9 sm:py-10">
+              <div
+                class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--brand-green)_12%,white)] text-[var(--brand-green)] md:mx-0"
+                aria-hidden="true"
+              >
+                <svg
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3 class="mt-5 text-center text-[1.0625rem] font-bold leading-snug text-[var(--ink)] md:text-left">
+                Appear in comparisons students actually use
+              </h3>
+              <p class="mt-3 text-center text-[0.9375rem] leading-relaxed text-neutral-600 md:text-left">
+                AllPros is where students compare creators before they buy. Getting listed means you&rsquo;re in the
+                room when they make that decision — instead of being invisible while a competitor wins the sale.
+              </p>
+            </article>
+
+            <article class="bg-white px-7 py-9 sm:px-9 sm:py-10">
+              <div
+                class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--brand-green)_12%,white)] text-[var(--brand-green)] md:mx-0"
+                aria-hidden="true"
+              >
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 3.75l7.5 3.75v5.25c0 4.5-3.5 8.25-7.5 9.75-4-1.5-7.5-5.25-7.5-9.75V7.5L12 3.75z"
+                  />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
+                </svg>
+              </div>
+              <h3 class="mt-5 text-center text-[1.0625rem] font-bold leading-snug text-[var(--ink)] md:text-left">
+                Look credible the moment they land on you
+              </h3>
+              <p class="mt-3 text-center text-[0.9375rem] leading-relaxed text-neutral-600 md:text-left">
+                Real verified reviews, a live AllPros Score, and an independent profile page. Students who find you
+                see proof — not a sales page you wrote yourself.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class=" bg-white py-16 sm:py-20 lg:py-24"
+        aria-labelledby="how-it-works-heading"
+      >
+        <div class="mx-auto max-w-[1024px] px-5 sm:px-8 lg:px-10">
+          <p class="text-left text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-neutral-400">
+            How it works
+          </p>
+          <h2
+            id="how-it-works-heading"
+            class="mt-4 max-w-[36rem] text-left text-[1.85rem] font-bold leading-[1.15] tracking-[-0.02em] text-[var(--ink)] sm:text-[2.1rem] md:text-[2.35rem] [font-family:'Instrument_Serif',Georgia,serif]"
+          >
+            From invisible to found in two minutes.
+          </h2>
+          <p class="mt-5 max-w-[40rem] text-left text-[1.0625rem] leading-relaxed text-neutral-600">
+            No approval. No gatekeeping. Claim your profile and let students find you.
+          </p>
+
+          <div class="mt-12 sm:mt-16">
+            <div class="flex gap-6 border-b border-neutral-200 py-10 sm:gap-10 sm:py-12">
+              <div class="w-14 shrink-0 text-left sm:w-20" aria-hidden="true">
+                <span
+                  class="block text-[2.75rem] font-medium leading-none tracking-tight text-neutral-300 sm:text-[3.25rem] md:text-[3.5rem] [font-family:'Instrument_Serif',Georgia,serif]"
+                  >01</span>
+              </div>
+              <div class="min-w-0 flex-1 pt-0.5">
+                <h3 class="text-[1.0625rem] font-bold leading-snug text-[var(--ink)]">
+                  Claim your free profile
+                </h3>
+                <p class="mt-3 text-[0.9375rem] leading-relaxed text-neutral-600">
+                  Your program may already be listed. Claim it, fill in your details, and your public page at
+                  allpros.io/p/your-name goes live immediately. No card, no delay.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-6 border-b border-neutral-200 py-10 sm:gap-10 sm:py-12">
+              <div class="w-14 shrink-0 text-left sm:w-20" aria-hidden="true">
+                <span
+                  class="block text-[2.75rem] font-medium leading-none tracking-tight text-neutral-300 sm:text-[3.25rem] md:text-[3.5rem] [font-family:'Instrument_Serif',Georgia,serif]"
+                  >02</span>
+              </div>
+              <div class="min-w-0 flex-1 pt-0.5">
+                <h3 class="text-[1.0625rem] font-bold leading-snug text-[var(--ink)]">
+                  Collect verified reviews from your students
+                </h3>
+                <p class="mt-3 text-[0.9375rem] leading-relaxed text-neutral-600">
+                  Send your students the review link. Every review is verified as a real student — no fakes, no
+                  incentivized posts. Your AllPros Score is calculated automatically as they come in.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-6 py-10 sm:gap-10 sm:py-12">
+              <div class="w-14 shrink-0 text-left sm:w-20" aria-hidden="true">
+                <span
+                  class="block text-[2.75rem] font-medium leading-none tracking-tight text-neutral-300 sm:text-[3.25rem] md:text-[3.5rem] [font-family:'Instrument_Serif',Georgia,serif]"
+                  >03</span>
+              </div>
+              <div class="min-w-0 flex-1 pt-0.5">
+                <h3 class="text-[1.0625rem] font-bold leading-snug text-[var(--ink)]">
+                  Get found — on Google, on AI, on AllPros
+                </h3>
+                <p class="mt-3 text-[0.9375rem] leading-relaxed text-neutral-600">
+                  Your profile with real verified reviews shows up when students search your name, ask AI tools who to
+                  trust, or browse AllPros looking for creators in your niche.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class=" bg-white py-16 sm:py-20 lg:py-24"
+        aria-labelledby="testimonials-heading"
+      >
+        <div class="mx-auto max-w-[1024px] px-5 sm:px-8 lg:px-10">
+          <p class="text-left text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-neutral-400">
+            What listed creators say
+          </p>
+          <h2
+            id="testimonials-heading"
+            class="mt-4 max-w-[40rem] text-left text-[1.85rem] font-bold leading-[1.15] tracking-[-0.02em] text-[var(--ink)] sm:text-[2.1rem] md:text-[2.35rem] [font-family:'Instrument_Serif',Georgia,serif]"
+          >
+            Getting found changes everything.
+          </h2>
+
+          <div class="mt-12 grid gap-5 sm:mt-16 sm:gap-6 md:grid-cols-2">
+            <figure
+              class="relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-7 sm:p-8"
+            >
+              <span
+                class="pointer-events-none absolute left-6 top-5 select-none text-[2.75rem] leading-none text-neutral-300/90 [font-family:'Instrument_Serif',Georgia,serif]"
+                aria-hidden="true"
+                >&ldquo;</span>
+              <blockquote class="relative z-[1] flex flex-1 flex-col pt-6">
+                <p class="text-[0.9375rem] font-normal leading-relaxed text-[var(--ink)]">
+                  A student found me through AllPros search before I ran a single ad. My profile was doing discovery
+                  work I didn&rsquo;t even know was happening.
+                </p>
+              </blockquote>
+              <figcaption class="mt-auto flex items-center gap-3.5 pt-8">
+                <span
+                  class="flex size-11 shrink-0 items-center justify-center rounded-full bg-violet-100 text-[0.6875rem] font-bold tracking-wide text-violet-800"
+                  aria-hidden="true"
+                  >SK</span>
+                <span class="min-w-0">
+                  <span class="block text-[0.9375rem] font-bold text-[var(--ink)]">Sara K.</span>
+                  <span class="mt-0.5 block text-[0.8125rem] text-neutral-500">Dropshipping Educator</span>
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure
+              class="relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-7 sm:p-8"
+            >
+              <span
+                class="pointer-events-none absolute left-6 top-5 select-none text-[2.75rem] leading-none text-neutral-300/90 [font-family:'Instrument_Serif',Georgia,serif]"
+                aria-hidden="true"
+                >&ldquo;</span>
+              <blockquote class="relative z-[1] flex flex-1 flex-col pt-6">
+                <p class="text-[0.9375rem] font-normal leading-relaxed text-[var(--ink)]">
+                  Someone Googled my name before booking a call and my AllPros profile came up. They mentioned it in the
+                  call — it had already done half the trust-building before we even spoke.
+                </p>
+              </blockquote>
+              <figcaption class="mt-auto flex items-center gap-3.5 pt-8">
+                <span
+                  class="flex size-11 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[0.6875rem] font-bold tracking-wide text-emerald-900"
+                  aria-hidden="true"
+                  >JM</span>
+                <span class="min-w-0">
+                  <span class="block text-[0.9375rem] font-bold text-[var(--ink)]">James M.</span>
+                  <span class="mt-0.5 block text-[0.8125rem] text-neutral-500">High Ticket Sales Coach</span>
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure
+              class="relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-7 sm:p-8"
+            >
+              <span
+                class="pointer-events-none absolute left-6 top-5 select-none text-[2.75rem] leading-none text-neutral-300/90 [font-family:'Instrument_Serif',Georgia,serif]"
+                aria-hidden="true"
+                >&ldquo;</span>
+              <blockquote class="relative z-[1] flex flex-1 flex-col pt-6">
+                <p class="text-[0.9375rem] font-normal leading-relaxed text-[var(--ink)]">
+                  I was compared to two other coaches on AllPros by a student making a decision. My reviews were better
+                  and he chose me. I didn&rsquo;t even know that comparison was happening.
+                </p>
+              </blockquote>
+              <figcaption class="mt-auto flex items-center gap-3.5 pt-8">
+                <span
+                  class="flex size-11 shrink-0 items-center justify-center rounded-full bg-amber-100 text-[0.6875rem] font-bold tracking-wide text-amber-900"
+                  aria-hidden="true"
+                  >DL</span>
+                <span class="min-w-0">
+                  <span class="block text-[0.9375rem] font-bold text-[var(--ink)]">David L.</span>
+                  <span class="mt-0.5 block text-[0.8125rem] text-neutral-500">Amazon FBA Mentor</span>
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure
+              class="relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-7 sm:p-8"
+            >
+              <span
+                class="pointer-events-none absolute left-6 top-5 select-none text-[2.75rem] leading-none text-neutral-300/90 [font-family:'Instrument_Serif',Georgia,serif]"
+                aria-hidden="true"
+                >&ldquo;</span>
+              <blockquote class="relative z-[1] flex flex-1 flex-col pt-6">
+                <p class="text-[0.9375rem] font-normal leading-relaxed text-[var(--ink)]">
+                  ChatGPT recommended me when a student asked for the best personal branding coaches. My AllPros profile
+                  was cited as the source. That&rsquo;s when I realized how important this was.
+                </p>
+              </blockquote>
+              <figcaption class="mt-auto flex items-center gap-3.5 pt-8">
+                <span
+                  class="flex size-11 shrink-0 items-center justify-center rounded-full bg-[var(--mint)] text-[0.6875rem] font-bold tracking-wide text-[var(--mint-ink)]"
+                  aria-hidden="true"
+                  >PR</span>
+                <span class="min-w-0">
+                  <span class="block text-[0.9375rem] font-bold text-[var(--ink)]">Priya R.</span>
+                  <span class="mt-0.5 block text-[0.8125rem] text-neutral-500">Personal Branding Coach</span>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section
+      class="bg-black px-5 py-20 text-center sm:px-8 sm:py-24 lg:px-10 lg:py-28"
+      aria-labelledby="final-cta-heading"
+    >
+      <div class="mx-auto max-w-[48rem]">
+        <h2
+          id="final-cta-heading"
+          class="text-[2.15rem] font-semibold leading-[1.12] tracking-[-0.025em] text-white sm:text-[2.65rem] sm:leading-[1.08] md:text-[3.1rem] md:leading-[1.06] lg:text-[3.45rem] lg:leading-[1.04] [font-family:'Instrument_Serif',Georgia,serif]"
+        >
+          <span class="block">Students are searching for you right</span>
+          <span class="block">now.</span>
+          <span class="mt-1 block text-[#2db36f] italic sm:mt-1.5 md:mt-2">Make sure they find you.</span>
+        </h2>
+
+        <p
+          class="mx-auto mt-8 max-w-[28rem] text-[1.0625rem] leading-relaxed text-neutral-400 sm:mt-10 sm:max-w-[32rem] sm:text-lg"
+        >
+          Your free profile. Real verified reviews. Live on Google and AI search. Takes two minutes.
+        </p>
+
+        <div class="mt-10 flex flex-col items-stretch justify-center gap-3 sm:mt-12 sm:flex-row sm:items-center sm:justify-center sm:gap-4">
+          <a
+            href="#"
+            class="inline-flex min-h-[3rem] items-center justify-center rounded-full bg-white px-8 text-[0.9375rem] font-bold text-black transition-colors duration-300 ease-in-out hover:bg-neutral-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            Claim Your Free Profile
+          </a>
+          <a
+            href="#"
+            class="inline-flex min-h-[3rem] items-center justify-center rounded-full border border-white/20 bg-transparent px-8 text-[0.9375rem] font-semibold text-white transition-colors hover:border-white/35 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            See all plans
+          </a>
+        </div>
+
+        <p class="mt-10 text-[0.8125rem] leading-relaxed text-neutral-600 sm:mt-12">
+          No card required.
+          <span class="text-neutral-500">allpros.io/p/your-name</span>
+          goes live immediately.
+        </p>
       </div>
     </section>
 
+    <footer class="border-t border-[var(--line)] bg-[var(--surface)] px-5 py-8 text-center sm:px-8 lg:px-10">
+      <p class="text-[0.8125rem] leading-relaxed text-neutral-500">
+        AllPros &mdash; The trust layer for online education.
+        <span class="whitespace-nowrap">allpros.io</span>
+      </p>
+    </footer>
+
     <script>
       (function () {
-        var full = "online educators";
-        var el = document.querySelector("[data-typewriter]");
-        if (!el) return;
+        var btn = document.getElementById("nav-toggle");
+        var panel = document.getElementById("mobile-nav");
+        var backdrop = document.getElementById("mobile-nav-backdrop");
+        if (!btn || !panel) return;
 
-        var idx = 0;
-        var phase = "pauseStart";
-
-        function tick() {
-          if (phase === "type") {
-            idx += 1;
-            el.textContent = full.slice(0, idx);
-            if (idx >= full.length) {
-              phase = "pauseEnd";
-              setTimeout(tick, 1700);
-              return;
-            }
-            setTimeout(tick, 78);
-          } else if (phase === "pauseEnd") {
-            phase = "delete";
-            tick();
-          } else if (phase === "delete") {
-            idx -= 1;
-            el.textContent = full.slice(0, idx);
-            if (idx <= 0) {
-              phase = "pauseStart";
-              setTimeout(tick, 650);
-              return;
-            }
-            setTimeout(tick, 42);
-          } else if (phase === "pauseStart") {
-            phase = "type";
-            tick();
+        function setMenuOpen(open) {
+          if (open) {
+            panel.classList.add("is-open");
+            btn.classList.add("is-open");
+            document.documentElement.classList.add("nav-open");
+            panel.setAttribute("aria-hidden", "false");
+            if (backdrop) backdrop.classList.add("is-open");
+            btn.setAttribute("aria-expanded", "true");
+          } else {
+            panel.classList.remove("is-open");
+            btn.classList.remove("is-open");
+            document.documentElement.classList.remove("nav-open");
+            panel.setAttribute("aria-hidden", "true");
+            if (backdrop) backdrop.classList.remove("is-open");
+            btn.setAttribute("aria-expanded", "false");
           }
         }
 
-        phase = "type";
-        tick();
+        btn.addEventListener("click", function () {
+          setMenuOpen(!panel.classList.contains("is-open"));
+        });
+
+        if (backdrop) {
+          backdrop.addEventListener("click", function () {
+            setMenuOpen(false);
+          });
+        }
+
+        panel.addEventListener("click", function (e) {
+          if (e.target.closest("a")) {
+            setMenuOpen(false);
+          }
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && panel.classList.contains("is-open")) {
+            setMenuOpen(false);
+          }
+        });
+
+        window.addEventListener("resize", function () {
+          if (window.matchMedia("(min-width: 1024px)").matches) {
+            setMenuOpen(false);
+          }
+        });
       })();
     </script>
   </body>
