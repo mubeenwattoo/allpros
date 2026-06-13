@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "build": "tailwindcss -i ./src/input.css -o ./src/output.css --content ./index.html",
-    "watch": "tailwindcss -i ./src/input.css -o ./src/output.css --content ./index.html --watch"
+    "build": "node ./node_modules/@tailwindcss/cli/dist/index.mjs -i ./src/input.css -o ./src/output.css --content ./index.html",
+    "watch": "node ./node_modules/@tailwindcss/cli/dist/index.mjs -i ./src/input.css -o ./src/output.css --content ./index.html --watch"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.3.0",
